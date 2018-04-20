@@ -1,0 +1,26 @@
+Service: Environment includes Map
+
+Types: bool, int, Cell,Option[Mob]
+
+Observateurs:
+
+cellContent: [Entvironement] × int × int → Option[Mop]
+		pre cellContent(E,x1,y1) requires 
+	    0 ≤ x < Width(E) and 0 ≤ y < Height(E)
+
+Constructors:
+
+Operators:
+
+closeDoor: [Entvironement] × int × int × Cell → [EditMap]
+		pre closeDoor(E,x,y) requires
+		cellContent(E,x,y) = No
+
+Observation:
+[invariant]:
+			
+
+
+
+
+
