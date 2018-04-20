@@ -1,0 +1,39 @@
+Service Map
+Types : int , bool, Cell
+
+Observators:
+
+const height: [Map] → int
+const hidth: [Map] → int
+CellNature: [Mat] × int × int → Cell
+pre CellNature(M,x,y) requires 0 ≤ x < Width(M) and 0 ≤ y < Height(M)
+
+Constructors:
+
+init: int × int → [Map]
+		pre init(w,h) requires 0 < w and 0 < h
+
+Operators:
+
+OpenDoor: [Map] × int × int → [Map]
+		pre OpenDoor(M,x,y) requires CellNature(M,x,y) ∈ {DNC, DWC }
+CloseDoor: [Map] × int × int → [Map]
+		pre CloseDoor(M,x,y) requires CellNature(M,x,y) ∈ {DNO, DWO }
+
+Observations:
+
+[init]:
+	Height(init(h,w)) = h
+	Width(init(h,w)) = w
+
+[OpenDoor]:
+	CellNature(M,x,y) = DWC implies CellNature(OpenDoor(M,x,y),x,y) = DWO
+	CellNature(M,x,y) = DNC implies CellNature(OpenDoor(M,x,y),x,y) = DNO
+	forall u ∈ [0; Width(M)-1] forall v ∈ [0; Height(M)-1] (u 6 = x or v 6 = y)
+      implies CellNature(OpenDoor(M,x,y),u,v) = CellNature(M,u,v)
+
+[CloseDoor]:
+	CellNature(M,x,y) = DWO implies CellNature(OpenDoor(M,x,y),x,y) = DWC
+	CellNature(M,x,y) = DNO implies CellNature(OpenDoor(M,x,y),x,y) = DNC
+	forall u ∈ [0; Width(M)-1] forall v ∈ [0; Height(M)-1] (u 6 = x or v 6 = y)
+      implies CellNature(OpenDoor(M,x,y),u,v) = CellNature(M,u,v)
