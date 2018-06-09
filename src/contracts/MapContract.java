@@ -4,18 +4,18 @@ import decorateur.MapDecorator;
 import enumeration.Cell;
 import errors.PostConditionError;
 import errors.PreConditionError;
-import services.IMap;
-import servicesImplementations.Map;
+import services.Map;
+import servicesImplementations.MapImpl;
 
-public class MapContract extends MapDecorator implements IMap {
+public class MapContract extends MapDecorator implements Map {
 
-	public MapContract(IMap delegate) {
+	public MapContract(Map delegate) {
 		super(delegate);
 		// TODO Auto-generated constructor stub
 	}
 
 	public MapContract() {
-		super(new Map());
+		super(new MapImpl());
 
 	}
 	
@@ -38,9 +38,9 @@ public class MapContract extends MapDecorator implements IMap {
 	public Cell cellNature(int x, int y) {
 		//pre
 		if(!(0<=x)) throw new PreConditionError("x<0");
-		if(! (x<=width()) )throw new PreConditionError("x > height()");
+		if(! (x< width()) )throw new PreConditionError("x > width()");
 		if(!(0<=y)) throw new PreConditionError("y<0");
-		if(! (y<=height())) throw new PreConditionError("y > width()");
+		if(! (y< height())) throw new PreConditionError("y > height()");
 		
 		return super.cellNature(x, y);
 	}
@@ -77,10 +77,12 @@ public class MapContract extends MapDecorator implements IMap {
 		
 		//captures
 		Cell natCell_atPre = cellNature(x, y);
-		Cell[][]  cell_atPre= new Cell[height()][width()];
+		Cell[][]  cell_atPre= new Cell[width()][height()];
+		
+		for(int j=0;j<width();j++)
 		for(int i=0; i < height();i++)
-			for(int j=0;j<width();j++)
-				cell_atPre[i][j]=cellNature(i, j);
+			
+				cell_atPre[j][i]=cellNature(j, i);
 		
 		//run
 		super.openDoor(x, y);
@@ -94,14 +96,14 @@ public class MapContract extends MapDecorator implements IMap {
 	    if(natCell_atPre == Cell.DWC) 
 	    	if(! (cellNature(x, y)==Cell.DWO)) throw new PostConditionError("Nature du Cell devrait etre DWO");
 		
-	    for(int i=0; i < height();i++) {
-		 for(int j=0;j<width();j++) {
-			 if(i!=x && j!=y) {
-		   if( !(cell_atPre[i][j]==cellNature(i, j)) )
-			   throw new PostConditionError("Nature des autres cases ne devrait pas changé");
-		   }
-					}
-		}
+	    for(int j=0;j<width();j++) {
+			   for(int i=0; i < height();i++)	  {
+					 if(j!=x && i!=y) {
+				   if( !(cell_atPre[j][i]==cellNature(j, i)) )
+					   throw new PostConditionError("Nature des autres cases ne devrait pas changé");
+				      }
+				 }
+		    }
 	}
 
 	@Override
@@ -115,10 +117,12 @@ public class MapContract extends MapDecorator implements IMap {
 				
 				//captures
 				Cell natCell_atPre = cellNature(x, y);
-				Cell[][]  cell_atPre= new Cell[height()][width()];
+				Cell[][]  cell_atPre= new Cell[width()][height()];
+				
+				for(int j=0;j<width();j++)
 				for(int i=0; i < height();i++)
-					for(int j=0;j<width();j++)
-						cell_atPre[i][j]=cellNature(i, j);
+					
+						cell_atPre[j][i]=cellNature(j, i);
 				
 				//run
 				super.closeDoor(x, y);
@@ -132,10 +136,10 @@ public class MapContract extends MapDecorator implements IMap {
 			    if(natCell_atPre == Cell.DWO) 
 			    	if(! (cellNature(x, y)==Cell.DWC)) throw new PostConditionError("Nature du Cell devrait etre DWC");
 				
-			    for(int i=0; i < height();i++) {
-					 for(int j=0;j<width();j++) {
-						 if(i!=x && j!=y) {
-					   if( !(cell_atPre[i][j]==cellNature(i, j)) )
+			   for(int j=0;j<width();j++) {
+				   for(int i=0; i < height();i++)	  {
+						 if(j!=x && i!=y) {
+					   if( !(cell_atPre[j][i]==cellNature(j, i)) )
 						   throw new PostConditionError("Nature des autres cases ne devrait pas changé");
 					      }
 					 }

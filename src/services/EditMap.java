@@ -2,7 +2,7 @@ package services;
 
 import enumeration.Cell;
 
-public interface IEditMap extends /* refine */  IMap{
+public interface EditMap extends /* refine */  Map{
 	
 
 	// ===========OBSERVATORS==============

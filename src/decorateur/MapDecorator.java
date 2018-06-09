@@ -1,19 +1,19 @@
 package decorateur;
 
 import enumeration.Cell;
-import services.IMap;
+import services.Map;
 
-public class MapDecorator extends AbstractDecorator implements IMap  {
+public class MapDecorator extends AbstractDecorator implements Map  {
 	
-	protected IMap delegate;
+	protected Map delegate;
 
 	
 
-	protected IMap getDelegate() {
-		return (IMap)delegate;
+	protected Map getDelegate() {
+		return (Map)delegate;
 	}
 	
-	public MapDecorator(IMap delegate) {
+	public MapDecorator(Map delegate) {
 		super();
 		this.delegate = delegate;
 	}

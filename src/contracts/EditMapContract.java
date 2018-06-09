@@ -4,18 +4,18 @@ import enumeration.Cell;
 import errors.InvariantError;
 import errors.PostConditionError;
 import errors.PreConditionError;
-import services.IEditMap;
+import services.EditMap;
 
-public class EditMapContract extends MapContract implements IEditMap {
+public class EditMapContract extends MapContract implements EditMap {
      
 	
-	protected IEditMap delegate;
-    public EditMapContract(IEditMap map) {
+	protected EditMap delegate;
+    public EditMapContract(EditMap map) {
     	super(map);
 		this.delegate=map;
 	}
 	@Override
-	protected IEditMap getDelegate() {
+	protected EditMap getDelegate() {
 		return this.delegate;
 	}
 	@Override
@@ -32,9 +32,9 @@ public class EditMapContract extends MapContract implements IEditMap {
 	public void setNature(int x, int y, Cell nat) {
             //pre
 		if(!(0<=x)) throw new PreConditionError("x<0");
-		if(! (x<=height()) ) throw new PreConditionError("x > height()");
+		if(! (x<width()) ) throw new PreConditionError("x >= width()");
 		if(!(0<=y)) throw new PreConditionError("y<0");
-		if(! (y<=width()) ) throw new PreConditionError("y > width()");
+		if(! (y<height()) ) throw new PreConditionError("y >= heigth()");
 
         //inv@pre
 		checkInvariants();

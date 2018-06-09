@@ -2,7 +2,7 @@ package services;
 
 import enumeration.Cell;
 
-public interface IMap {
+public interface Map {
 	
 	// ===========OBSERVATORS==============
 	public int height();
@@ -15,9 +15,9 @@ public interface IMap {
 	// ===========CONSTRUCTORS==============
 	
 	/**
-	 * pre init(h,w) requires 0 < w and 0 < h
+	 * pre init(w,h) requires 0 < w and 0 < h
 	 */
-	public void init(int h, int w);
+	public void init(int w, int h);
 	
 	// ===========OPERATORS==============
 	

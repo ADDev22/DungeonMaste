@@ -5,17 +5,21 @@ import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
+import contracts.EnvironementContract;
 import contracts.MapContract;
-import errors.PostConditionError;
+
 import errors.PreConditionError;
-import services.IMap;
-import servicesImplementations.Map;
+import services.Environement;
+import services.Map;
+import servicesImplementations.EnvironementImpl;
+import servicesImplementations.MapImpl;
 
 
 
-class TestMap {
+
+class MapTest {
 	
-	IMap map;
+	Map map;
 	
 
 	/**
@@ -36,7 +40,7 @@ class TestMap {
            int h=10;
            int w=6;
        //Operation
-           map.init(h, w);
+           map.init(w, h);
            
            assertTrue("map.width()= w", map.width()==w);
            assertTrue("map.height()= w", map.height()==h);
@@ -159,5 +163,6 @@ class TestMap {
 		
 	}
 
+	
 
 }

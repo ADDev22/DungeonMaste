@@ -1,13 +1,13 @@
-package servicesImplementations;
+package servicesImplementationsBug;
 
 import enumeration.Cell;
-import services.IMap;
+import services.Map;
 
-public class Map implements IMap{
+public class MapBugImpl implements Map{
 
-	public Map() {};
-	private int height;
-	private int width;
+	public MapBugImpl() {};
+	protected int height;
+	protected int width;
 	protected Cell map[][]; 
 	@Override
 	public int height() {
@@ -39,13 +39,16 @@ public class Map implements IMap{
 
 	@Override
 	public void openDoor(int x, int y) {
-      map[x][y]=Cell.DNO;
-		
+      if( map[x][y] == Cell.DNC ) map[x][y]=Cell.DNO;
+      if( map[x][y] == Cell.DWC ) map[x][y]=Cell.DWO;
+      return; 
 	}
 
 	@Override
 	public void closeDoor(int x, int y) {
-		 map[x][y]=Cell.DNC;
+		  if( map[x][y] == Cell.DNO ) map[x][y]=Cell.DNC;
+	      if( map[x][y] == Cell.DWO ) map[x][y]=Cell.DWC;
+	      return;
 	}
 
 }
